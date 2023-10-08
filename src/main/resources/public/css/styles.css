@@ -1,0 +1,177 @@
+/* Stylesheet for the application */
+
+body{
+    background: #dedede;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+
+.errormessage{
+    color: red;
+}
+
+#content {
+    background: white;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#navbar {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+
+}
+
+.main-menu{
+    margin-right: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    gap: 10px;
+
+}
+
+input[type="text"], input[type="password"] {
+    /* Ændrer baggrundsfarven */
+    background-color: #f2f2f2;
+
+    /* Ændrer tekstfarven */
+    color: #333;
+
+    /* Tilføjer en ramme/border */
+    border: 1px solid #ccc;
+
+    /* Tilføjer polstring/padding omkring teksten inden i inputboksen */
+    padding: 9px;
+
+    /* Tilføjer afrunding af hjørnerne for at give en mere afrundet form */
+    border-radius: 3px;
+
+    /* Fjerner standardstil fra inputboksen */
+    outline: none;
+}
+
+/* Stil for placeholder-tekst */
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+    /* Ændrer farven på placeholder-teksten */
+    color: #999;
+}
+
+.button{
+    background-color: lightgray;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+}
+
+a:link{
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+    color: black;
+}
+
+.button:hover{
+    background-color: darkgrey;
+    color: white;
+    cursor: pointer;
+}
+
+#login_button{
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background: #696969;
+    color: white;
+}
+
+#login_button:hover{
+    cursor: pointer;
+    background: #4090ff;
+    color: white;
+}
+
+#form{
+    margin: 100px 0px 100px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 350px;
+    background: lightgray;
+    padding: 20px;
+    border-radius: 3px;
+    gap: 10px;
+
+}
+
+#tasks{
+    margin: 100px 0px 100px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 400px;
+    padding: 20px;
+    border-radius: 3px;
+    gap: 80px;
+
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#form *{
+}
+
+@media screen and (max-width: 600px){
+
+    #navbar {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .main-menu{
+        flex-direction: column;
+        width: 98%;
+        gap: 1px;
+    }
+
+    .button{
+        text-align: center;
+    }
+
+}

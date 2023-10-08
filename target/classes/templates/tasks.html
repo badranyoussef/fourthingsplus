@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Task</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div id="content">
+    <div id="navbar">
+        <div>
+            <img src="../public/images/fourthingsplus.png" th:src="@{/images/fourthingsplus.png}" width="300px"/>
+        </div>
+        <ul class="main-menu">
+            <li class="button"><a href="/">Edit profil</a></li>
+            <li class="button"><a href="/">Log out</a></li>
+        </ul>
+    </div>
+
+    <h2>Hi <span th:text="${#ctx.session.currentUser.name}"></span> welcome to Four Things Plus</h2>
+
+    <div>
+        <p>Add new item</p>
+        <form method="post">
+            <input type="text" name="item_name" placeholder="Name of item"/>
+            <button class="button" type="submit" formaction="/addtask">ADD</button>
+        </form>
+    </div>
+
+
+    <div id="tasks">
+        <div>
+            <h2>Things to do</h2>
+
+            <!-- Loop igennem opgaver og vis dem -->
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Action</th>
+                    <th>Remove</th>
+                </tr>
+                <!--
+                Thymeleaf for each. Looper tabellen igennem og opretter række pr. række i tabellen
+                For neden beder vi om at gennem løbe tabellen med midlertidig variabel "task"
+                ${tasks} indikerer hvad vi har kaldt listen for inde i metoden login i UserController
+                -->
+                <tr th:each="task : ${tasksToDo}">
+                    <td th:text="${task.name}">Name of item</td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="task_id" formaction="/done" th:value="${task.id}">Done</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form method="delete">
+                            <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete
+                            </button>
+                        </form>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h2>Done</h2>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Action</th>
+                    <th>Remove</th>
+                </tr>
+                <tr th:each="task : ${tasksDone}">
+                    <td th:text="${task.name}">Name of item</td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="task_id" formaction="/undo" th:value="${task.id}">Undo</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Frontpage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="content">
+    <div id="navbar">
+        <div>
+            <img src="../public/images/fourthingsplus.png" th:src="@{/images/fourthingsplus.png}" width="300px"/>
+        </div>
+        <ul class="main-menu">
+            <li class="button"><a href="/">Home</a></li>
+            <li class="button"><a href="/">Create Account</a></li>
+        </ul>
+    </div>
+    <form id="form" method="post">
+        <h3>Login</h3>
+        <input type="text" name="username" placeholder="username"/>
+        <input type="password" name="password" placeholder="password"/>
+        <button id="login_button" type="submit" formaction="/login">Get access to my mind</button>
+        <p class="errormessage" th:text="${#ctx.message}"></p>
+    </form>
+    <!-- her er /createuser et route. dvs når der klikkes på linket så skal den dirigere til undersiden
+     create user. i Main laver man en route til denne som fortæller hvad der skal gøres når der klikkes på linket-->
+    <a href="/createuser" class="button">Create account</a>
+</div>
+
+</body>
+</html>
