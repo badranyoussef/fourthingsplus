@@ -44,10 +44,8 @@ public class Main {
         app.post("/createuser", ctx -> UserController.createUser(ctx, connectionPool));
         //Når jeg ønsker at tilføje en task skal der benyttes post da jeg ønsker at tilføje noget til tabellen
         app.post("/addtask", ctx -> UserController.addTask(ctx, connectionPool));
-        app.delete("/delete", ctx -> UserController.deleteTask(ctx, connectionPool));
+        app.post("/delete", ctx -> UserController.deleteTask(ctx, connectionPool));
         app.post("/done", ctx -> UserController.taskDone(ctx, connectionPool));
         app.post("/undo", ctx -> UserController.taskUndo(ctx, connectionPool));
-
-
     }
 }
