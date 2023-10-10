@@ -12,11 +12,11 @@ import java.util.List;
 
 public class TaskMapper {
 
-    public static List<Task> getToDoTasksPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException {
+    public static List<Task> getAllTasksPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException {
 
         List<Task> taskList = new ArrayList<>();
-        String sql =
-                "SELECT * FROM tasks WHERE done = false AND tasks.user_id = ?";
+        String sql = "SELECT * FROM tasks WHERE tasks.user_id = ?";
+                //"SELECT * FROM tasks WHERE done = false AND tasks.user_id = ?";
 
         try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -30,31 +30,6 @@ public class TaskMapper {
                         taskList.add(new Task(id, name, done));
                     }
                 }
-        } catch (SQLException e) {
-            throw new DatabaseException("Error getting task data");
-        }
-
-        return taskList;
-    }
-
-    public static List<Task> getDoneTasksPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException {
-
-        List<Task> taskList = new ArrayList<>();
-        String sql =
-                "SELECT * FROM tasks WHERE done = true AND tasks.user_id = ?";
-
-        try (Connection connection = connectionPool.getConnection()) {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, userId);
-            try(ResultSet rs = ps.executeQuery()) {
-                while(rs.next()) {
-                    int id = rs.getInt("id");
-                    String name = rs.getString("name");
-                    boolean done = rs.getBoolean("done");
-
-                    taskList.add(new Task(id, name, done));
-                }
-            }
         } catch (SQLException e) {
             throw new DatabaseException("Error getting task data");
         }
@@ -86,8 +61,6 @@ public class TaskMapper {
     public static void deleteTask(int taskId, ConnectionPool connectionPool) throws DatabaseException{
 
         String sql = "delete from tasks where id = ?";
-
-        // String sql = "delete from tasks where user_id = ? and id = ?";
 
         try (Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sql)){

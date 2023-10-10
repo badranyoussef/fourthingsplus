@@ -21,13 +21,10 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user); // Således kan vi altid hive fat i brugeren. Tjek task siden
 
             //get tasks belonging to this user
-            List<Task> tasksToDo = TaskMapper.getToDoTasksPerUser(user.getId(), connectionPool);
-            List<Task> tasksDone = TaskMapper.getDoneTasksPerUser(user.getId(), connectionPool);
-
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
 
             //I attribute gemmer vi et listen over tasks i varibale "tasks"
-            ctx.attribute("tasksToDo", tasksToDo);
-            ctx.attribute("tasksDone", tasksDone);
+            ctx.attribute("tasks", listOfTasks);
             ctx.render("tasks.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -67,12 +64,10 @@ public class UserController {
             TaskMapper.addTask(user.getId(), name, connectionPool);
 
             //get tasks belonging to this user
-            List<Task> tasksToDo = TaskMapper.getToDoTasksPerUser(user.getId(), connectionPool);
-            List<Task> tasksDone = TaskMapper.getDoneTasksPerUser(user.getId(), connectionPool);
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
 
             //I attribute gemmer vi et listen over tasks i varibale "tasks"
-            ctx.attribute("tasksToDo", tasksToDo);
-            ctx.attribute("tasksDone", tasksDone);
+            ctx.attribute("tasks", listOfTasks);
             ctx.render("tasks.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -89,12 +84,10 @@ public class UserController {
             TaskMapper.deleteTask(taskId,connectionPool);
 
             //get tasks belonging to this user
-            List<Task> tasksToDo = TaskMapper.getToDoTasksPerUser(user.getId(), connectionPool);
-            List<Task> tasksDone = TaskMapper.getDoneTasksPerUser(user.getId(), connectionPool);
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
 
             //I attribute gemmer vi et listen over tasks i varibale "tasks"
-            ctx.attribute("tasksToDo", tasksToDo);
-            ctx.attribute("tasksDone", tasksDone);
+            ctx.attribute("tasks", listOfTasks);
             ctx.render("tasks.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -110,12 +103,10 @@ public class UserController {
             TaskMapper.TaskDone(taskId,connectionPool);
 
             //get tasks belonging to this user
-            List<Task> tasksToDo = TaskMapper.getToDoTasksPerUser(user.getId(), connectionPool);
-            List<Task> tasksDone = TaskMapper.getDoneTasksPerUser(user.getId(), connectionPool);
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
 
             //I attribute gemmer vi et listen over tasks i varibale "tasks"
-            ctx.attribute("tasksToDo", tasksToDo);
-            ctx.attribute("tasksDone", tasksDone);
+            ctx.attribute("tasks", listOfTasks);
             ctx.render("tasks.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -131,12 +122,11 @@ public class UserController {
             TaskMapper.TaskUndo(taskId,connectionPool);
 
             //get tasks belonging to this user
-            List<Task> tasksToDo = TaskMapper.getToDoTasksPerUser(user.getId(), connectionPool);
-            List<Task> tasksDone = TaskMapper.getDoneTasksPerUser(user.getId(), connectionPool);
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
 
             //I attribute gemmer vi et listen over tasks i varibale "tasks"
-            ctx.attribute("tasksToDo", tasksToDo);
-            ctx.attribute("tasksDone", tasksDone);
+            ctx.attribute("tasks", listOfTasks);
+            //ctx.attribute("tasksDone", tasksDone);
             ctx.render("tasks.html");
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
