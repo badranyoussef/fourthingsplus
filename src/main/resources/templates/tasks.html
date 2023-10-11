@@ -38,62 +38,60 @@
 
             <!-- Loop igennem opgaver og vis dem -->
             <table>
-                <thead>
                 <tr>
-                    <th>Item</th>
+                    <th>Task</th>
                     <th>Action</th>
-                    <th>Remove</th>
                 </tr>
-                </thead>
-
-                <tbody>
                 <!--
                 Thymeleaf for each. Looper tabellen igennem og opretter række pr. række i tabellen
                 For neden beder vi om at gennem løbe tabellen med midlertidig variabel "task"
                 ${tasks} indikerer hvad vi har kaldt listen for inde i metoden login i UserController
                 -->
                 <tr th:each="task : ${tasks}" th:if="${not task.done}">
-                    <td th:text="${task.name}">Name of item</td>
-                    <td>
-                        <form method="post">
+                    <td th:text="${task.name}">Name of task</td>
+                    <td class="taskform">
+                        <form class="taskform" method="post">
                             <button type="submit" name="task_id" formaction="/done" th:value="${task.id}">Done</button>
                         </form>
-                    </td>
-
-                    <td>
-                        <form method="post">
-                            <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete
-                            </button>
+                        <form  method="post">
+                            <button type="submit" name="task_id" formaction="/edit" th:value="${task.id}">Edit</button>
                         </form>
+                        <form class="taskform" method="post">
+                            <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete</button>
+                        </form>
+                    </td>
                 </tr>
-                </tbody>
+
             </table>
         </div>
-
         <div>
             <h2>Done</h2>
             <table>
                 <tr>
-                    <th>Item</th>
+                    <th>Task</th>
                     <th>Action</th>
-                    <th>Remove</th>
                 </tr>
                 <tr th:each="task : ${tasks}" th:if="${task.done}">
-                    <td th:text="${task.name}">Name of item</td>
-                    <td>
-                        <form method="post">
+                    <td th:text="${task.name}">Name of task</td>
+                    <td class="taskform">
+                        <form class="taskform" method="post">
                             <button type="submit" name="task_id" formaction="/undo" th:value="${task.id}">Undo</button>
                         </form>
-                    </td>
-                    <td>
-                        <form method="post">
+                        <form  method="post">
+                            <button type="submit" name="task_id" formaction="/edit" th:value="${task.id}">Edit</button>
+                        </form>
+                        <form class="taskform" method="post">
                             <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete</button>
                         </form>
                     </td>
                 </tr>
             </table>
         </div>
+        <!--
+        <a th:if="${ctx.session.currentUser} ==null" th:href="@{/createuser}">Create user</a>
 
+        <a th:if="${ctx.session.currentUser} !=null" th:href="@{/logout}">Logout</a>
+        -->
     </div>
 </div>
 </body>

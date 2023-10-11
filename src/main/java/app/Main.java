@@ -37,7 +37,6 @@ public class Main {
         app.get("/", ctx -> ctx.render("index.html"));
         //Når man indtaster sine oplysninger skal der logges ind
         app.post("/login", ctx -> UserController.login(ctx,connectionPool));
-
         //Når der klikkes på linket "Create user" skal undersiden createuser renderes.
         app.get("/createuser", ctx -> ctx.render("createuser.html"));
         // Når der klikkes på createuser, følges denne rute:
@@ -47,5 +46,18 @@ public class Main {
         app.post("/delete", ctx -> UserController.deleteTask(ctx, connectionPool));
         app.post("/done", ctx -> UserController.taskDone(ctx, connectionPool));
         app.post("/undo", ctx -> UserController.taskUndo(ctx, connectionPool));
+        //Når man er inde på tiden tasks og klikker på edit, føres man til undersiden edittasks hvor man kan ændre task title
+        app.post("/edit", ctx -> UserController.getTask(ctx, connectionPool));
+        app.post("/updatetask", ctx -> UserController.editTask(ctx, connectionPool));
+        app.post("/usertasks", ctx -> UserController.getAllTasks(ctx,connectionPool));
+        app.get("/logout", ctx -> UserController.logout(ctx, connectionPool));
+
+
+
+
+
+        //app.post("/task", ctx -> UserController.editTask(ctx, connectionPool));
+
+
     }
 }

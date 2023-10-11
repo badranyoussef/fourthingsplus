@@ -100,7 +100,7 @@ public class UserController {
         User user = ctx.sessionAttribute("currentUser");
 
         try {
-            TaskMapper.TaskDone(taskId,connectionPool);
+            TaskMapper.taskDone(taskId,connectionPool);
 
             //get tasks belonging to this user
             List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
@@ -119,7 +119,7 @@ public class UserController {
         User user = ctx.sessionAttribute("currentUser");
 
         try {
-            TaskMapper.TaskUndo(taskId,connectionPool);
+            TaskMapper.taskUndo(taskId,connectionPool);
 
             //get tasks belonging to this user
             List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
@@ -132,5 +132,73 @@ public class UserController {
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
+    }
+
+    public static void getTask(Context ctx, ConnectionPool connectionPool) {
+
+        int taskId = Integer.parseInt(ctx.formParam("task_id"));
+        User user = ctx.sessionAttribute("currentUser");
+
+        try {
+
+            //get task to edit belonging to this user
+            Task task = TaskMapper.getTask(taskId, connectionPool);
+
+            //I attribute gemmer vi et listen over tasks i varibale "tasks"
+            ctx.attribute("task", task);
+            //ctx.attribute("tasksDone", tasksDone);
+            ctx.render("edittasks.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+
+    }
+
+
+    public static void editTask(Context ctx, ConnectionPool connectionPool) {
+        int taskId = Integer.parseInt(ctx.formParam("task_id"));
+        String newTitle = ctx.formParam("task_name");
+        User user = ctx.sessionAttribute("currentUser");
+
+        try {
+            TaskMapper.editTask(taskId, newTitle, connectionPool);
+
+            //get tasks belonging to this user
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
+
+            //I attribute gemmer vi et listen over tasks i varibale "tasks"
+            ctx.attribute("tasks", listOfTasks);
+            //ctx.attribute("tasksDone", tasksDone);
+            ctx.render("tasks.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+    }
+
+    public static void getAllTasks(Context ctx, ConnectionPool connectionPool) {
+        User user = ctx.sessionAttribute("currentUser");
+
+        try {
+            TaskMapper.getAllTasksPerUser(user.getId(),connectionPool);
+
+            //get tasks belonging to this user
+            List<Task> listOfTasks = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
+
+            //I attribute gemmer vi et listen over tasks i varibale "tasks"
+            ctx.attribute("tasks", listOfTasks);
+            ctx.render("tasks.html");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+    }
+
+    public static void logout(Context ctx, ConnectionPool connectionPool) {
+
+        ctx.req().getSession().invalidate();
+        ctx.redirect("index.html");
+
     }
 }
